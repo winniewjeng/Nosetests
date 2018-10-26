@@ -21,12 +21,12 @@ class OpenMovie:
         self.title = title
         self.posterURL = posterURL
         self.posterFileName = None
-        # name a dir named Posters
         self.path = "Posters"
-        # whenever nosetests Test_OpenMovie.py is ran, old Poster dir gets deleted so we need to recreate
-        os.mkdir(self.path)
-        # log the (re)creation of a Poster dir
-        logging.info(" Successfully created the directory %s " % self.path)
+        if os.path.isdir(self.path):
+            pass
+        else:
+            os.mkdir(self.path)
+            logging.info(" Successfully created the directory %s " % self.path)
 
     def getPoster(self):
         # log the event of calling getPoster() method
@@ -36,7 +36,7 @@ class OpenMovie:
 
         # substitute every symbol and spaces in title with underline
         self.title = re.sub(r"[^a-zA-Z0-9]", "_", self.title)
-        # self.title = "Posters/%s" % self.title
+        self.title = "Posters/%s" % self.title
 
         # use urlretrieve to download the file from posterURL, store it in posterFileName, return True
         try:
