@@ -35,16 +35,13 @@ class OpenMovie:
         logging.info(" Poster's URL %s" % self.posterURL)
 
         # substitute every symbol and spaces in title with underline
-        self.title = re.sub(r"[^a-zA-Z0-9]", "_", self.title)
-        self.title = "Posters/%s" % self.title
-
-        # use urlretrieve to download the file from posterURL, store it in posterFileName, return True
+        re.sub(r"[^a-zA-Z0-9]", "_", self.title)
+        self.posterFileName = "Posters/%s" % self.title
         try:
-            self.posterFileName = urllib.request.urlretrieve(self.posterURL, self.title)
+            urllib.request.urlretrieve(self.posterURL, self.posterFileName)
             return True
         except:
             exc_type, exc_value, exc_traceback = sys.exc_info()
             traceback.print_exception(exc_type, exc_value, exc_traceback, limit=2, file=sys.stdout)
-            # print("*** tb_lineno:", exc_traceback.tb_lineno)
-            logging.error("*** tb_lineno:", exc_traceback.tb_lineno)
+            logging.error("*** tb_lineno: {}".format(exc_traceback.tb_lineno))
             return False
